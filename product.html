@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+        /* Genel Stil */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+        }
+
+       header {
+    background-color: #003d66; /* Daha koyu ve göz yormayan mavi */
+    color: #ffffff;
+    padding: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky; /* Sticky özelliği */
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Üstte kalmasını sağlar */
+    transition: background 0.3s;
+}
+
+header.scrolled {
+    background-color: #002a43; /* Scroll yapıldığında koyulaşır */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+header nav ul li a:hover {
+    background-color: #002a43; /* Daha koyu ton */
+}
+
+        .product-detail {
+            padding: 50px 20px;
+            background-color: #ffffff;
+        }
+
+        .product-detail .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product-detail .images {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .product-detail .images img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .product-detail .images .slider {
+            position: relative;
+        }
+
+        .product-detail .images .slides {
+            overflow: hidden;
+        }
+
+        .product-detail .images .slide {
+            display: none;
+            transition: all 0.5s ease;
+        }
+
+        .product-detail .images .slide img {
+            border-radius: 10px;
+        }
+
+        .product-detail .images .prev, .product-detail .images .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .product-detail .images .prev:hover, .product-detail .images .next:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .product-detail .images .prev {
+            left: 10px;
+        }
+
+        .product-detail .images .next {
+            right: 10px;
+        }
+
+        .product-detail .details {
+            flex: 1;
+            max-width: 700px;
+        }
+
+        .product-detail h2 {
+            margin-bottom: 20px;
+            font-size: 36px;
+            color: #003d66; /* Renk tonunu güncelledik */
+        }
+
+        .product-detail p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555555;
+            margin-bottom: 20px;
+        }
+
+        .product-detail button {
+            background-color: #003d66; /* Renk tonunu güncelledik */
+            color: #ffffff;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 18px;
+        }
+
+        .product-detail button:hover {
+            background-color: #002a43; /* Daha koyu ton */
+        }
+
+        .product-detail .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #003d66;
+            text-decoration: none;
+        }
+
+        .product-detail .back-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #003d66; /* Daha koyu ve göz yormayan mavi */
+            color: #ffffff;
+            padding: 40px 0;
+            margin-top: 50px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            text-align: center
+        }
+
+        footer .footer-col {
+            flex: 1;
+            margin-bottom: 20px;
+            min-width: 200px;
+        }
+
+        footer h4 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        footer p, footer a {
+            color: #ffffff;
+            font-size: 16px;
+            text-decoration: none;
+            margin-bottom: 10px;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #d1e7ff;
+        }
+
+        footer p.copy {
+            text-align: center;
+            font-size: 14px;
+            color: #d1e7ff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Medical Supplies Store</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="product-detail">
+        <div class="container">
+            <div class="images">
+                <div class="slider">
+                    <div class="slides">
+                        <div class="slide"><img src="https://via.placeholder.com/500" alt="Product Image 1"></div>
+                        <div class="slide"><img src="https://via.placeholder.com/500/ff0000" alt="Product Image 2"></div>
+                        <div class="slide"><img src="https://via.placeholder.com/500/00ff00" alt="Product Image 3"></div>
+                    </div>
+                    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+                </div>
+            </div>
+            <div class="details">
+                <h2>Product Title</h2>
+                <p>This is a detailed description of the product. It provides comprehensive information about the features, benefits, and specifications of the product. You can include dimensions, materials used, and any other relevant details.</p>
+                <p>Price: $XX.XX</p>
+                <button>Buy Now</button>
+                <a href="index.html" class="back-link">← Back to Products</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p>123 Medical St.</p>
+                <p>Health City, HC 12345</p>
+                <p>Email: contact@medicalsupply.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="#products">Products</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
+                <a href="#faq">FAQ</a>
+            </div>
+        </div>
+        <p class="copy">© 2024 Medical Supplies Store. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        function showSlides() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((slide, index) => {
+                slide.style.display = (index === slideIndex) ? 'block' : 'none';
+            });
+        }
+
+        function moveSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            slideIndex = (slideIndex + n + slides.length) % slides.length;
+            showSlides();
+        }
+
+        showSlides(); // Show the first slide
+
+window.addEventListener('scroll', function() {
+    const header = document.getElementById('header');
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+    </script>
+</body>
+</html>
